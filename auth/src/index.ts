@@ -4,6 +4,7 @@ import { signInUserRouter } from "./routes/signin"
 import { signOutUserRouter } from "./routes/signout"
 import { signUpUserRouter } from "./routes/signup"
 import { errorHandler } from "./middlewares/error-handler"
+import { NotFoundError } from "./errors/not-found-error"
 const app: Express = express()
 
 app.use(express.json())
@@ -13,6 +14,9 @@ app.use(signInUserRouter)
 app.use(signOutUserRouter)
 app.use(signUpUserRouter)
 
+app.all("*", () => {
+	throw new NotFoundError()
+})
 app.use(errorHandler)
 
 app.listen(3000, () => {
