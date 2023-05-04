@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose, { version } from "mongoose"
 import { PasswordManager } from "../services/password"
 
 // An interface that describes the properties
@@ -20,7 +20,17 @@ const userSchema = new mongoose.Schema<UserAttrs>(
 			required: true,
 		},
 	},
-	{ timestamps: true }
+	{
+		timestamps: true,
+		toJSON: {
+			transform(doc, ret) {
+				ret.id = ret._id
+				delete ret._id
+				delete ret.password
+			},
+			versionKey: false,
+		},
+	}
 )
 
 userSchema.pre("save", async function (done) {
