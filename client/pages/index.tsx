@@ -1,10 +1,11 @@
 import Head from "next/head"
-import Image from "next/image"
-import { Inter } from "@next/font/google"
-
-const inter = Inter({ subsets: ["latin"] })
-
-export default function Home() {
+import { NextPage } from "next"
+import axios, { AxiosResponse } from "axios"
+import buildClient from "../api/build-client"
+interface IProps {
+	currentUser: any
+}
+const Home: NextPage<IProps> = ({ currentUser }) => {
 	return (
 		<>
 			<Head>
@@ -22,6 +23,20 @@ export default function Home() {
 					href='/favicon.ico'
 				/>
 			</Head>
+			<main>
+				{currentUser ? (
+					<h1>you are signed in</h1>
+				) : (
+					<h1>you are not signed in</h1>
+				)}
+			</main>
 		</>
 	)
 }
+
+Home.getInitialProps = async ctx => {
+	const { data } = await buildClient(ctx).get("/api/users/currentuser")
+	return data
+}
+
+export default Home
