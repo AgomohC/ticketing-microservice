@@ -20,7 +20,8 @@ export const currentUser = (
 	next: NextFunction
 ) => {
 	if (!req.session?.jwt) {
-		return next()
+		next()
+		return
 	}
 	try {
 		const payload = jwt.verify(
