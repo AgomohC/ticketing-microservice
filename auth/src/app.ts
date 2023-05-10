@@ -3,8 +3,7 @@ import { currentUserRouter } from "./routes/current-user"
 import { signInUserRouter } from "./routes/signin"
 import { signOutUserRouter } from "./routes/signout"
 import { signUpUserRouter } from "./routes/signup"
-import { errorHandler } from "./middlewares/error-handler"
-import { NotFoundError } from "./errors/not-found-error"
+import { errorHandler, NotFoundError } from "@femtoace/common"
 import cookieSession from "cookie-session"
 
 const app: Express = express()

@@ -1,10 +1,10 @@
 import express, { Response, Request, NextFunction } from "express"
 import { body } from "express-validator"
 import { User } from "../models/user"
-import { validateRequest } from "../middlewares/validate-requests"
-import { BadRequestError } from "../errors/bad-request-error"
+import { BadRequestError, validateRequest } from "@femtoace/common"
 import { PasswordManager } from "../services/password"
 import Jwt from "jsonwebtoken"
+
 const router = express.Router()
 
 router.post(
