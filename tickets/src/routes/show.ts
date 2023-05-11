@@ -1,11 +1,5 @@
 import express, { NextFunction, Request, Response } from "express"
-import { body, param } from "express-validator"
-import {
-	NotFoundError,
-	currentUser,
-	requireAuth,
-	validateRequest,
-} from "@femtoace/common"
+import { NotFoundError } from "@femtoace/common"
 import { Ticket } from "../models/ticket"
 
 const router = express.Router()
