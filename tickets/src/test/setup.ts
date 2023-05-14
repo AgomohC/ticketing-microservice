@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken"
 declare global {
 	var signin: () => string[]
 }
+jest.mock("../nats-wrapper")
+
 let mongo: MongoMemoryServer
 beforeAll(async () => {
 	process.env.JWT_KEY = "asdf"
@@ -12,6 +14,7 @@ beforeAll(async () => {
 	await mongoose.connect(mongoURI)
 })
 beforeEach(async () => {
+	jest.clearAllMocks()
 	const collections = await mongoose.connection.db.collections()
 	for (let collection of collections) {
 		await collection.deleteMany()
@@ -31,10 +34,8 @@ global.signin = () => {
 		},
 		process.env.JWT_KEY!
 	)
-
 	const session = Buffer.from(JSON.stringify({ jwt: token })).toString(
 		"base64"
 	)
-
 	return [`session=${session}`]
 }

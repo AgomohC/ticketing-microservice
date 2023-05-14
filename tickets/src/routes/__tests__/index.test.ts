@@ -1,5 +1,6 @@
 import supertest from "supertest"
 import app from "../../app"
+
 const createTicket = async () => {
 	return supertest(app)
 		.post("/api/tickets")
