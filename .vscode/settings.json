@@ -2,5 +2,5 @@
 	"yaml.schemas": {
 		"kubernetes://schema/v1%40service": "file:///c%3A/Users/Home/Desktop/ticketing/infra/k8s/auth-depl.yaml"
 	},
-	"cSpell.words": ["femtoace", "signin", "signout"]
+	"cSpell.words": ["femtoace", "nats", "signin", "signout"]
 }
