@@ -24,7 +24,7 @@ router.get(
 			if (order.userId !== req.currentUser!.id) {
 				throw new NotAuthorizedError()
 			}
-			res.send(order)
+			return res.send(order)
 		} catch (error) {
 			next(error)
 		}

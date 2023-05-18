@@ -7,11 +7,12 @@ const router = express.Router()
 router.get(
 	"/api/orders",
 	async (req: Request, res: Response, next: NextFunction) => {
+		console.log(req.currentUser!.id)
 		try {
 			const orders = await Order.find({
 				userId: req.currentUser!.id,
 			}).populate("ticket")
-			res.send(orders)
+			return res.send(orders)
 		} catch (error) {
 			next(error)
 		}

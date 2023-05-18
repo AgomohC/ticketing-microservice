@@ -17,11 +17,16 @@ app.use(
 		httpOnly: true,
 	})
 )
+
+app.use((req, res, next) => {
+	console.log(req.url)
+	next()
+})
 app.use(currentUser)
 app.use(newOrderRouter)
 app.use(deleteOrderRouter)
-app.use(showOrderRouter)
 app.use(indexOrderRouter)
+app.use(showOrderRouter)
 
 app.all("*", () => {
 	throw new NotFoundError()

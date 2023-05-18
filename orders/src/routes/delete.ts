@@ -36,7 +36,7 @@ router.delete(
 					id: order.ticket.id as string,
 				},
 			})
-			res.status(204).send({})
+			return res.status(204).send({})
 		} catch (error) {
 			next(error)
 		}
