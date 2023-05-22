@@ -1,11 +1,25 @@
 import Head from "next/head"
-import { NextPage } from "next"
-import axios, { AxiosResponse } from "axios"
 import buildClient from "../api/build-client"
-interface IProps {
-	currentUser: any
-}
-const Home: NextPage<IProps> = ({ currentUser }) => {
+import Link from "next/link"
+
+const Home = ({ currentUser, tickets }: { currentUser: any; tickets: any }) => {
+	const ticketList = tickets.map((ticket: any) => {
+		return (
+			<tr key={ticket.id}>
+				<td>{ticket.price}</td>
+				<td>{ticket.title}</td>
+				<td>
+					<Link
+						href={`/ticket/[ticketId]`}
+						as={`/ticket/${ticket.id}`}
+						className='nav-link'
+					>
+						View
+					</Link>
+				</td>
+			</tr>
+		)
+	})
 	return (
 		<>
 			<Head>
@@ -24,19 +38,28 @@ const Home: NextPage<IProps> = ({ currentUser }) => {
 				/>
 			</Head>
 			<main>
-				{currentUser ? (
-					<h1>you are signed in</h1>
-				) : (
-					<h1>you are not signed in</h1>
-				)}
+				<div>
+					<h1>Tickets</h1>
+
+					<table className='table'>
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>price</th>
+								<th>Link</th>
+							</tr>
+						</thead>
+						<tbody>{ticketList}</tbody>
+					</table>
+				</div>
 			</main>
 		</>
 	)
 }
 
-Home.getInitialProps = async ctx => {
-	const { data } = await buildClient(ctx).get("/api/users/currentuser")
-	return data
+Home.getInitialProps = async (ctx: any) => {
+	const { data } = await buildClient(ctx).get("/api/tickets")
+	return { tickets: data }
 }
 
 export default Home

@@ -16,7 +16,12 @@ export default function AppComponent({
 		<div>
 			<Header currentUser={currentUser} />
 			<p>{JSON.stringify(currentUser)}</p>
-			<Component {...pageProps} />
+			<div className='container'>
+				<Component
+					currentUser={currentUser}
+					{...pageProps}
+				/>
+			</div>
 		</div>
 	)
 }

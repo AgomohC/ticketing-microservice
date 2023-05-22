@@ -10,7 +10,7 @@ const useRequest = ({
 	url: string
 	method: string
 	body: any
-	onSuccess: () => void
+	onSuccess: (param?: any) => void
 }) => {
 	const [errors, setErrors] = useState<any>()
 
@@ -18,7 +18,7 @@ const useRequest = ({
 		try {
 			setErrors(undefined)
 			const response = await axios({ method, url, data: body })
-			onSuccess()
+			onSuccess(response.data)
 			return response.data
 		} catch (err: any) {
 			setErrors(
